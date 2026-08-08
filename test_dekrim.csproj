@@ -1,0 +1,25 @@
+<Project Sdk="Godot.NET.Sdk/4.7.1">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <EnableDynamicLoading>true</EnableDynamicLoading>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>Loopholes.Client</RootNamespace>
+
+    <!-- The wire models are hand-written to match the server's JSON; a mismatch
+         should fail the build here rather than silently deserialize to null. -->
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningsAsErrors>CS8600;CS8602;CS8603</WarningsAsErrors>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- backend/ is a separate service that happens to live in this folder. Godot
+         globs **/*.cs from the project root, so it must be excluded explicitly or
+         the game build would try to compile the server. There is deliberately no
+         ProjectReference to it: the two talk over HTTP only. -->
+    <Compile Remove="backend/**" />
+    <None Remove="backend/**" />
+  </ItemGroup>
+
+</Project>
